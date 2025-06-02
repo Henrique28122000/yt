@@ -10,10 +10,13 @@ class VideoRequest(BaseModel):
 @app.post("/extract")
 def extract_video(request: VideoRequest):
     ydl_opts = {
-        'format': 'bestvideo+bestaudio/best',
-        'quiet': True,
-        'skip_download': True,
-    }
+    'format': 'bestvideo+bestaudio/best',
+    'quiet': True,
+    'skip_download': True,
+    'cookiefile': 'cookies.txt', 
+}
+
+    
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(request.url, download=False)
